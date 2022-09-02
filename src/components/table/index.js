@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import styles from './styles.module.css'
 import {TableCell} from "../table-cell";
 import {emptyCells, winningCombinations} from "../../constants";
+import {PlayerName} from "../player-name";
+import styles from './styles.module.css'
 
 const Table = () => {
     const [turn, setTurn] = useState('x')
     const [cells, setCells] = useState(emptyCells)
     const [winner, setWinner] = useState(null)
+    const [playersName, setPlayersName] = useState({playerOne: 'Player#1', playerTwo: 'Player#2'})
 
     const checkWinner = (squares) => {
         for (let direction in winningCombinations) {
@@ -27,10 +29,23 @@ const Table = () => {
         setCells(emptyCells)
     }
 
+    const handleSetPlayersNames = (value, id) => {
+        if (id ==='pl_1') {
+            setPlayersName({playerOne: value, playerTwo: playersName.playerTwo})
+        } else {
+            setPlayersName({playerOne: playersName.playerOne, playerTwo: value})
+        }
+
+    }
+
     return (
-        <div className={styles}>
-            <span>Turn: {turn}</span>
-            <table>
+        <div className={styles.content}>
+            <div className={styles.players}>
+                <PlayerName id={'pl_1'} playersName={playersName} onSetPlayersName={handleSetPlayersNames} />
+                <PlayerName id={'pl_2'} playersName={playersName} onSetPlayersName={handleSetPlayersNames} />
+            </div>
+                <span className={styles.turn}>Turn: {turn === 'x' ? playersName.playerOne : playersName.playerTwo}</span>
+            <table className={styles.table}>
                 <tbody>
                 <tr>
                     <TableCell idx={0}
@@ -38,18 +53,21 @@ const Table = () => {
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={1}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={2}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                 </tr>
                 <tr>
@@ -58,18 +76,21 @@ const Table = () => {
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={4}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={5}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                 </tr>
                 <tr>
@@ -78,24 +99,33 @@ const Table = () => {
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={7}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                     <TableCell idx={8}
                                onSetTurn={setTurn}
                                turn={turn} cells={cells}
                                onSetCells={setCells}
                                onCheckWinner={checkWinner}
+                               disabled={Boolean(winner)}
                     />
                 </tr>
                 </tbody>
             </table>
+
+            {!cells.includes(null) && !winner && <div className={styles.draw}>
+                <span className={styles.title}>Draw (• ◡•)| (❍ᴥ❍ʋ)</span>
+                <button onClick={handleRestart}>Restart</button>
+            </div>}
+
             {winner && <div>
-                <span>{winner}</span>
+                <div className={styles.winner}>Winner: <span className={styles.name}>{winner === 'x' ? playersName.playerOne : playersName.playerTwo}</span> ヾ(⌐■_■)ノ♪</div>
                 <button onClick={handleRestart}>Restart</button>
             </div>}
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './styles.module.css'
 
-const TableCell = ({idx, onSetTurn, turn, cells, onSetCells, onCheckWinner}) => {
+const TableCell = ({idx, onSetTurn, turn, cells, onSetCells, onCheckWinner, disabled}) => {
+
     const handleCellClick = (idx) => {
-        if (cells[idx] !== null) {
+        if (cells[idx] !== null || disabled) {
             return;
         }
-        console.log('idx: ', idx)
         const squares = [...cells]
 
         if (turn === 'x') {
@@ -21,7 +21,7 @@ const TableCell = ({idx, onSetTurn, turn, cells, onSetCells, onCheckWinner}) => 
     }
 
     return (
-        <td className={styles} onClick={() => handleCellClick(idx)}>
+        <td className={styles.cell} onClick={() => handleCellClick(idx)}>
             {cells[idx]}
         </td>
     );
