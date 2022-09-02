@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styles from './styles.module.css'
+import PropTypes from "prop-types";
 
 const PlayerName = ({ id, onSetPlayersName, playersName }) => {
     const [isInputActive, setIsInputActive] = useState(false)
@@ -29,5 +30,11 @@ const PlayerName = ({ id, onSetPlayersName, playersName }) => {
         </div>
     );
 };
+
+PlayerName.propTypes = {
+    id: PropTypes.string.isRequired,
+    onSetPlayersName: PropTypes.func.isRequired,
+    playersName: PropTypes.shape({playerOne: PropTypes.string, playerTwo: PropTypes.string}).isRequired,
+}
 
 export {PlayerName};
