@@ -21,7 +21,7 @@ const PlayerName = ({ id, onSetPlayersName, playersName, isInputDisabled }) => {
 
 
     const handleKeyDown = ({key}) => {
-        if (key === 'Enter' && (playersName.playerOne.length > 0 || playersName.playerTwo.length > 0)) {
+        if (key === 'Enter' && (playersName.playerOne.length > 0 && playersName.playerTwo.length > 0)) {
             setIsInputActive(false)
         }
     }
