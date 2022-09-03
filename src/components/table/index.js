@@ -54,11 +54,13 @@ const Table = () => {
           id={"pl_1"}
           playersName={playersName}
           onSetPlayersName={handleSetPlayersNames}
+          isInputDisabled={cells.includes('x')}
         />
         <PlayerName
           id={"pl_2"}
           playersName={playersName}
           onSetPlayersName={handleSetPlayersNames}
+          isInputDisabled={cells.includes('x')}
         />
       </div>
       <span className={styles.turn}>
