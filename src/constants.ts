@@ -1,4 +1,6 @@
-export const winningCombinations = {
+import {IWinningCombinations} from "./types/types";
+
+export const winningCombinations: IWinningCombinations = {
     down: [
         [0,3,6],
         [1,4,7],
@@ -15,4 +17,4 @@ export const winningCombinations = {
     ]
 }
 
-export const emptyCells = Array(9).fill(null)
+export const emptyCells: Array<null> = Array(9).fill(null)

@@ -1,26 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import styles from './styles.module.css'
-import PropTypes from "prop-types";
+import {IPlayersName} from "../../types/types";
 
-const PlayerName = ({ id, onSetPlayersName, playersName, isInputDisabled }) => {
+interface PlayerNameProps {
+    id: string
+    onSetPlayersName: (value:string, id:string) => void
+    playersName: IPlayersName
+    isInputDisabled: boolean
+}
+
+const PlayerName: React.FC<PlayerNameProps> = ({ id, onSetPlayersName, playersName, isInputDisabled }) => {
     const [isInputActive, setIsInputActive] = useState(false)
 
     useEffect(() => {
         if (isInputDisabled) setIsInputActive(false)
     }, [isInputDisabled])
 
-    const handleInputChange = ({target:{value}}) => {
-
+    const handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void = ({target:{value}}) => {
         onSetPlayersName(value, id)
     }
 
-    const handleNameClick = () => {
+    const handleNameClick: () => void = () => {
         if (isInputDisabled) return;
         setIsInputActive(true)
     }
 
 
-    const handleKeyDown = ({key}) => {
+    const handleKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void = ({key}) => {
         if (key === 'Enter' && (playersName.playerOne.length > 0 && playersName.playerTwo.length > 0)) {
             setIsInputActive(false)
         }
@@ -39,11 +45,5 @@ const PlayerName = ({ id, onSetPlayersName, playersName, isInputDisabled }) => {
         </div>
     );
 };
-
-PlayerName.propTypes = {
-    id: PropTypes.string.isRequired,
-    onSetPlayersName: PropTypes.func.isRequired,
-    playersName: PropTypes.shape({playerOne: PropTypes.string, playerTwo: PropTypes.string}).isRequired,
-}
 
 export {PlayerName};

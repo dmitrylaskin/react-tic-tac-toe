@@ -3,17 +3,18 @@ import { TableCell } from "../table-cell";
 import { emptyCells, winningCombinations } from "../../constants";
 import { PlayerName } from "../player-name";
 import styles from "./styles.module.css";
+import {IPlayersName} from "../../types/types";
 
-const Table = () => {
-  const [turn, setTurn] = useState("x");
-  const [cells, setCells] = useState(emptyCells);
-  const [winner, setWinner] = useState(null);
-  const [playersName, setPlayersName] = useState({
+const Table: React.FC = () => {
+  const [turn, setTurn] = useState<string>("x");
+  const [cells, setCells] = useState<Array<string>>(emptyCells);
+  const [winner, setWinner] = useState<string>(null);
+  const [playersName, setPlayersName] = useState<IPlayersName>({
     playerOne: "Player#1",
     playerTwo: "Player#2",
   });
 
-  const checkWinner = (squares) => {
+  const checkWinner: (squares:Array<string>) => void = (squares) => {
     for (let direction in winningCombinations) {
       for (let item in winningCombinations[direction]) {
         if (
@@ -33,13 +34,13 @@ const Table = () => {
     }
   };
 
-  const handleRestart = () => {
+  const handleRestart: () => void = () => {
     setWinner(null);
     setCells(emptyCells);
     setTurn("x");
   };
 
-  const handleSetPlayersNames = (value, id) => {
+  const handleSetPlayersNames: (value:string, id:string) => void = (value, id) => {
     if (id === "pl_1") {
       setPlayersName({ playerOne: value, playerTwo: playersName.playerTwo });
     } else {
